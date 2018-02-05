@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RESTful.Entities;
+using RESTful.Services;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace RESTful
@@ -28,6 +29,7 @@ namespace RESTful
         {
             services.AddMvc();
             services.AddDbContext<LibraryDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddScoped<ILibraryRepository, LibraryRepository>();
 
             services.AddSwaggerGen(c =>
             {
