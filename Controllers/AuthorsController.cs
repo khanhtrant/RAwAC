@@ -1,4 +1,8 @@
+using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using RESTful.Helpers;
+using RESTful.Models;
 using RESTful.Services;
 
 namespace RESTful.Controllers
@@ -15,7 +19,8 @@ namespace RESTful.Controllers
         [HttpGet()]
         public IActionResult GetAuthors()
         {
-            var authors=_libraryRepository.GetAuthors();
+            var authorsFromDb = _libraryRepository.GetAuthors();
+            var authors = Mapper.Map<IEnumerable<AuthorDto>>(authorsFromDb);
             return Ok(authors);
         }
     }
