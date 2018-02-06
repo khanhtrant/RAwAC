@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -23,18 +22,6 @@ namespace RESTful.Controllers
             var authorsFromDb = _libraryRepository.GetAuthors();
             var authors = Mapper.Map<IEnumerable<AuthorDto>>(authorsFromDb);
             return Ok(authors);
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetAuthor(Guid id)
-        {
-            var authorFromDb = _libraryRepository.GetAuthor(id);
-            if (authorFromDb == null)
-            {
-                return NotFound();
-            }
-            var author = Mapper.Map<AuthorDto>(authorFromDb);
-            return Ok(author);
         }
     }
 }
