@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace RESTful.Migrations
 {
-    public partial class InitModels : Migration
+    public partial class InitialModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

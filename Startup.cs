@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using RESTful.Entities;
 using RESTful.Helpers;
+using RESTful.Models;
 using RESTful.Services;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -44,7 +39,7 @@ namespace RESTful
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,LibraryDbContext libraryDbContext)
         {
             if (env.IsDevelopment())
             {
@@ -61,7 +56,6 @@ namespace RESTful
                     });
                 });
             }
-
             //ConfigureAutoMapper
             AutoMapper.Mapper.Initialize(cfg =>
             {
@@ -70,6 +64,7 @@ namespace RESTful
                     .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()));
 
                 cfg.CreateMap<Entities.Book, Models.BookDto>();
+                cfg.CreateMap<AuthorForCreationDto,Entities.Author>();
             });
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.

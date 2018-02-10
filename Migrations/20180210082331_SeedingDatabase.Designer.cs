@@ -11,7 +11,7 @@ using System;
 namespace RESTful.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20180205143352_SeedingDatabase")]
+    [Migration("20180210082331_SeedingDatabase")]
     partial class SeedingDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

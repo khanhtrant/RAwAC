@@ -11,8 +11,8 @@ using System;
 namespace RESTful.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20180205142431_InitModels")]
-    partial class InitModels
+    [Migration("20180210082236_InitialModels")]
+    partial class InitialModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
