@@ -29,9 +29,14 @@ namespace RESTful.Controllers
             return Ok(booksForAuthor);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}",Name="GetBookForAuthor")]
         public IActionResult GetBookForAuthor(Guid authorId, Guid id)
         {
+            if (!_libraryRepository.AuthorExists(authorId))
+            {
+                return NotFound();
+            }
+
             if (!_libraryRepository.AuthorExists(authorId))
             {
                 return NotFound();
@@ -44,6 +49,29 @@ namespace RESTful.Controllers
             }
             var bookForAuthor = Mapper.Map<BookDto>(bookFromDb);
             return Ok(bookForAuthor);
+        }
+
+        [HttpPost()]
+        public IActionResult CreateBookForAuthor(Guid authorId,[FromBody] BookForCreationDto book)
+        {
+            if (book==null)
+            {
+                return BadRequest();
+            }
+
+            var bookForDb=Mapper.Map<Entities.Book>(book);
+            _libraryRepository.AddBookForAuthor(authorId,bookForDb);
+            if (!_libraryRepository.Save())
+            {
+                return StatusCode(500,"Unexpected from server");
+            }
+
+            var bookCreateToReturn=Mapper.Map<Models.BookDto>(bookForDb);
+
+            return CreatedAtRoute("GetBookForAuthor",new{
+                authorId=authorId,
+                id=bookCreateToReturn.Id
+            },bookCreateToReturn);
         }
     }
 }

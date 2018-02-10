@@ -65,6 +65,7 @@ namespace RESTful
 
                 cfg.CreateMap<Entities.Book, Models.BookDto>();
                 cfg.CreateMap<AuthorForCreationDto,Entities.Author>();
+                cfg.CreateMap<BookForCreationDto,Entities.Book>();
             });
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
