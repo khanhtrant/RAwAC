@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,12 @@ namespace RESTful.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetAuthorCollection(IEnumerable<Guid> ids)
+        {
+            
         }
     }
 }
